@@ -1,1 +1,1 @@
-# My Awesome Greeter
+# My Strapi Mapper
