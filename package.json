@@ -5,13 +5,13 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "test": "jest --config jestconfig.json",
+    "test": "jest --watch --config jestconfig.json",
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
-    "prepare" : "npm run build",
-    "prepublishOnly" : "npm test && npm run lint",
-    "preversion" : "npm run lint",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags"
   },
@@ -19,7 +19,10 @@
     "type": "git",
     "url": "git+https://github.com/rahff/Strapi-mapper.git"
   },
-  "keywords": ["Strapi", "mapper"],
+  "keywords": [
+    "Strapi",
+    "mapper"
+  ],
   "author": "Rahff",
   "license": "ISC",
   "bugs": {
@@ -27,10 +30,19 @@
   },
   "homepage": "https://github.com/rahff/Strapi-mapper#readme",
   "devDependencies": {
+    "@types/jest": "^28.1.3",
+    "jest": "^28.1.1",
     "prettier": "^2.7.1",
+    "ts-jest": "^28.0.5",
     "tslint": "^6.1.3",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^4.7.4"
   },
-  "files": ["lib/**/*"]
+  "files": [
+    "lib/**/*"
+  ],
+  "dependencies": {
+    "@types/qs": "^6.9.7",
+    "qs": "^6.10.5"
+  }
 }
