@@ -2,11 +2,19 @@ import { stringify } from "qs";
 import { RelationshipPopulation } from "../src/builders/interfaces";
 
 export const allPopulateFirstLevel = stringify({
-    populate : "*"
+    populate : "*",
+    pagination: {
+        page: 1,
+        pageSize: 10,
+      }
 }, {encodeValuesOnly: true})
 
 export const populateSomeFieldsFirstLevel = stringify({
-    populate : ['collaborators', 'services']
+    populate : ['collaborators', 'services'],
+    pagination: {
+        page: 1,
+        pageSize: 10,
+      }
 }, {encodeValuesOnly: true})
 
 export const populateSomeSlectedFields = stringify({
@@ -34,8 +42,34 @@ export const allPopulateSecondLevel = stringify({
         portfolio_items: {
             populate: "*"
         },
-    }
-}, {encodeValuesOnly: true})
+    },
+    sort: ["name:desc"]
+}, {encodeValuesOnly: true});
+
+export const populatedComponent = stringify({
+    populate: [
+      'seoData',
+      'seoData.sharedImage',
+      'seoData.sharedImage.media',
+    ],
+    pagination: {page: 2, pageSize: 4}
+  }, {
+    encodeValuesOnly: true,
+  });
+
+export const populateDzWithComponents = stringify({
+    populate: {
+      testDZ1: {
+        populate: '*',
+      },
+      testDZ2: {
+        populate: '*',
+      },
+    },
+    sort: ["desc"]
+  }, {
+    encodeValuesOnly: true,
+  });
 
 export const populatedOneRelationshipAndManyFieldInSecondLevel = stringify({
     populate: {
