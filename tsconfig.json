@@ -1,11 +1,26 @@
-{
+
+  {
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "display": "Node 14",
+  
     "compilerOptions": {
-      "target": "ES2020",
-      "module": "ESNext",
+      "lib": ["es2020"],
+      "module": "commonjs",
+      "target": "es2020",
+      "experimentalDecorators": true,
       "declaration": true,
+      "baseUrl": ".",
       "outDir": "./lib",
-      "strict": true
+      "strict": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+      "moduleResolution": "node",
+      "paths": {
+        "@nestjs": ["node_modules/@nestjs"]
+      }
     },
-    "include": ["src"],
+    "include": ["src", "spec/mapper.spec.ts", "spec/api.spec.ts"],
     "exclude": ["node_modules", "**/__tests__/*"]
   }
+  

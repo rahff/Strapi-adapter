@@ -5,15 +5,16 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "test": "jest --watch --config jestconfig.json",
+    "test": "nodemon --ext ts --exec 'jasmine-ts  --config=./jasmine.json'",
+    "coverage": "nyc npm run test",
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
-    "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
     "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "t": "node ./query.js"
   },
   "repository": {
     "type": "git",
@@ -30,10 +31,17 @@
   },
   "homepage": "https://github.com/rahff/Strapi-mapper#readme",
   "devDependencies": {
-    "@types/jest": "^28.1.3",
-    "jest": "^28.1.1",
+    "@nestjs/testing": "^8.4.7",
+    "@types/jasmine": "^3.3.12",
+    "@types/node": "^18.0.0",
+    "@types/qs": "^6.9.7",
+    "jasmine": "^3.4.0",
+    "jasmine-ts": "^0.3.0",
+    "jasmine-ts-console-reporter": "^3.1.1",
+    "nodemon": "^1.18.11",
+    "nyc": "^15.1.0",
     "prettier": "^2.7.1",
-    "ts-jest": "^28.0.5",
+    "ts-node": "^8.0.3",
     "tslint": "^6.1.3",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^4.7.4"
@@ -42,7 +50,15 @@
     "lib/**/*"
   ],
   "dependencies": {
-    "@types/qs": "^6.9.7",
-    "qs": "^6.10.5"
+    "@nestjs/axios": "0.0.8",
+    "@nestjs/common": "^8.4.7",
+    "@nestjs/core": "^8.4.7",
+    "@types/node-fetch": "^2.6.2",
+    "axios": "^0.27.2",
+    "nestjs": "0.0.1",
+    "node-fetch": "^3.2.6",
+    "qs": "^6.10.5",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.5.5"
   }
 }

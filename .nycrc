@@ -1,0 +1,14 @@
+{
+    "exclude": [
+        "spec/**/*.ts"
+    ],
+    "include": [
+        "**/*.ts"
+    ],
+    "reporter": [
+        "html",
+        "text",
+        "text-summary"
+    ],
+    "all": true
+}
