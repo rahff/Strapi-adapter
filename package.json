@@ -8,7 +8,7 @@
     "test": "nodemon --ext ts --exec 'jasmine-ts  --config=./jasmine.json'",
     "coverage": "nyc npm run test",
     "build": "tsc",
-    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
