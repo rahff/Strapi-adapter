@@ -1,9 +1,10 @@
 {
     "exclude": [
-        "spec/**/*.ts"
+        "spec/**/*.ts",
+        "data/**./*.*"
     ],
     "include": [
-        "**/*.ts"
+        "src/*.ts"
     ],
     "reporter": [
         "html",

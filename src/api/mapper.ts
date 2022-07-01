@@ -22,17 +22,6 @@ export class StrapiMapper {
         }
     }
 
-    private mapEntityField(object: any): any {
-        for (const key in object) {
-            if (Object.prototype.hasOwnProperty.call(object, key)) {
-                if(this.isEntity(object[key])){
-                    object[key].attributes = object[key].data.attributes;
-                }
-                
-            }
-        }
-    }
-
     private isEntity(obj: any): boolean {
         const isEntity = (value: any) => value.data ? value.data.id && value.data.attributes : false
         return obj ? isEntity(obj) : false
@@ -41,34 +30,66 @@ export class StrapiMapper {
     private mapMediaField(obj: any): any {
         for (const key in obj) {
             if (Object.prototype.hasOwnProperty.call(obj, key)) {
-                if(Array.isArray(obj[key])){
-                    obj[key] = obj[key].map((el: any)=>{
-                       return this.mapMediaField(el);
-                    })
-                }else if(this.isSingleMediaField(obj[key])){
-                    obj[key] = this.mapSingleMediaField(obj[key])
-                }else if(this.isArrayMedia(obj[key])){
-                    const arrayMedia: any[] = [];
-                    obj[key].data.forEach((media: any)=>{
-                        arrayMedia.push(this.mapSingleMediaField(media));
-                    })
-                    obj[key] = arrayMedia
-                }else if(this.isRelationShipArray(obj[key])){
-                    const relationshipArray: any[] = []
-                    obj[key].data.forEach((entity: any)=>{
-                        const attr = this.sanitizeDateTime(entity.attributes);
-                        relationshipArray.push(this.mapMediaField({...attr, id:entity.id }));
-                    })
-                    obj[key] = relationshipArray;
-                }else if(this.isEntity(obj[key])){
-                    const id = obj[key].data.id
-                    const attr = this.sanitizeDateTime(obj[key].data.attributes);
-                    obj[key] = this.mapMediaField({...attr, id: id });
-                    
+                switch (this.whatThis(obj[key])) {
+                    case "array":
+                        obj[key] = this.mapThisAsArray(obj[key]);
+                    break;
+
+                    case "singleMedia":
+                        obj[key] = this.mapSingleMediaField(obj[key]);
+                    break;
+
+                    case "arrayMedia":
+                        obj[key] = this.mapThisAsArrayMedia(obj[key])
+                    break;
+
+                    case "relationshipArray":
+                        obj[key] = this.mapThisAsRelationshipArray(obj[key]);
+                    break;
+
+                    case "entity":
+                        obj[key] = this.mapThisAsEntity(obj[key]);
+                    break;
                 }
             }
         }
         return obj
+    }
+
+    private mapThisAsArray(array: any[]): any[]{
+      return array.map((el: any)=> this.mapMediaField(el));
+    }
+
+    private mapThisAsArrayMedia(value: any): any[]{
+        const arrayMedia: any[] = [];
+       value.data.forEach((media: any)=>{
+            arrayMedia.push(this.mapSingleMediaField(media));
+        })
+        return arrayMedia
+    }
+
+    private mapThisAsRelationshipArray(value: any): any[] {
+        const relationshipArray: any[] = []
+        value.data.forEach((entity: any)=>{
+                const attr = this.sanitizeDateTime(entity.attributes);
+                relationshipArray.push(this.mapMediaField({...attr, id:entity.id }));
+            })
+        return relationshipArray;
+    }
+
+    private mapThisAsEntity(value: any): any {
+        const id = value.data.id
+        const attr = this.sanitizeDateTime(value.data.attributes);
+        return this.mapMediaField({...attr, id: id });
+    }
+
+    private whatThis(value: any): string {
+        if(Array.isArray(value)) return "array";
+        if(this.isSingleMediaField(value)) return "singleMedia";
+        if(this.isArrayMedia(value)) return "arrayMedia";
+        if(this.isRelationShipArray(value)) return "relationshipArray";
+        if(this.isEntity(value)) return "entity";
+        else return ""
     }
 
     private isRelationShipArray(obj: any): boolean {
