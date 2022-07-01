@@ -1,11 +1,11 @@
 {
-  "name": "strapi-mapper",
+  "name": "rahffstrapi-mapper",
   "version": "1.0.0",
   "description": "A nice greeter",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "test": "nodemon --ext ts --exec 'jasmine-ts  --config=./jasmine.json'",
+    "test": "",
     "coverage": "nyc npm run test",
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\"",

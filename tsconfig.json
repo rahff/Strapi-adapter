@@ -15,12 +15,9 @@
       "esModuleInterop": true,
       "skipLibCheck": true,
       "forceConsistentCasingInFileNames": true,
-      "moduleResolution": "node",
-      "paths": {
-        "@nestjs": ["node_modules/@nestjs"]
-      }
+      "moduleResolution": "node"
     },
-    "include": ["src", "spec/mapper.spec.ts", "spec/api.spec.ts"],
+    "include": ["src"],
     "exclude": ["node_modules", "**/__tests__/*"]
   }
   
