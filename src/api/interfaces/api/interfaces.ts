@@ -1,5 +1,3 @@
-import { stringify } from 'qs';
-
 export interface QueryObject {
   entityName: string;
   fields?: string[];
@@ -29,14 +27,16 @@ export interface PaginationObject {
 
 export type Entity = IEntity & any;
 
-export interface FindResponse {
-  data: Entity[];
+export interface FindResponse<T> {
+  data: T[];
   pagination: PaginationObject | {};
 }
 
-export interface FindOneResponse {
-  data: Entity;
+export interface FindOneResponse<T> {
+  data: T;
 }
+
+export type IResponse<T> = FindOneResponse<T> | FindResponse<T>;
 
 export interface IEntity {
   id: number;

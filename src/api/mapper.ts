@@ -1,10 +1,10 @@
-import { FindOneResponse, FindResponse, Media } from './interfaces/api/interfaces';
+import { FindResponse, IResponse, Media } from './interfaces/api/interfaces';
 import { StrapiResponse, StrapiMediaEntity, StrapiEntity, StrapiMediaList } from './interfaces/strapi/interfaces';
 
 export class StrapiMapper {
-  public mapResponse(response: StrapiResponse): FindOneResponse | FindResponse {
+  public mapResponse<T>(response: StrapiResponse): IResponse<T> {
     if (Array.isArray(response.data)) {
-      const result: FindResponse = { data: [], pagination: {} };
+      const result: FindResponse<T> = { data: [], pagination: {} };
       response.data.forEach((obj: StrapiEntity) => {
         let attr = this.sanitizeDateTime(obj.attributes);
         attr = this.mapMediaField(attr);

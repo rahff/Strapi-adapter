@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "test": "",
+    "test": "nodemon --ext ts --exec 'jasmine-ts  --config=./jasmine.json'",
     "coverage": "nyc npm run test",
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\"",
@@ -50,6 +50,7 @@
   ],
   "dependencies": {
     "axios": "^0.27.2",
+    "formdata-node": "^4.3.3",
     "qs": "^6.10.5"
   }
 }

@@ -1,17 +1,29 @@
-import { FindOneResponse, FindResponse, QueryObject } from './interfaces/api/interfaces';
+import { FindOneResponse, FindResponse, IResponse, QueryObject } from './interfaces/api/interfaces';
 import { StrapiMapper } from './mapper';
 import { QueryBuilder } from './queryBuilder';
-import axios from 'axios';
+import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import { StrapiResponse } from './interfaces/strapi/interfaces';
 
 export class StrapiApi {
   private mapper: StrapiMapper = new StrapiMapper();
 
-  constructor(private strapiUrl: string) {}
+  constructor(private strapiUrl: string, private service: AxiosInstance = axios) {}
 
-  async get(querySchema: QueryObject): Promise<FindOneResponse | FindResponse> {
+  async get<T>(querySchema: QueryObject): Promise<IResponse<T>> {
     const query = new QueryBuilder(querySchema).buildQueryString();
-    const response = await axios.get(this.strapiUrl + query);
-    const body = await response.data;
-    return this.mapper.mapResponse(body);
+    const response = await this.service.get<any, AxiosResponse<StrapiResponse, any>>(this.strapiUrl + query);
+    return this.mapper.mapResponse(response.data);
+  }
+
+  async post<T>(path: string, body: any): Promise<IResponse<T>> {
+    const response = await this.service.post<any, AxiosResponse<StrapiResponse, any>>(this.strapiUrl + path, body);
+    return this.mapper.mapResponse(response.data);
+  }
+
+  async delete<T>(path: string, id: string): Promise<IResponse<T>> {
+    const response = await this.service.delete<any, AxiosResponse<StrapiResponse, any>>(
+      `${this.strapiUrl}${path}/${id}`,
+    );
+    return this.mapper.mapResponse(response.data);
   }
 }

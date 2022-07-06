@@ -15,27 +15,27 @@ describe('Mapper', ()=>{
     })
     describe('receive a findOne entity response', ()=>{
         it("should return an object with entity s id an attribute, and sanitized media field", ()=>{
-            const result = mapper.mapResponse(findOneEntity);
+            const result = mapper.mapResponse(findOneEntity.data);
             expect(result).toEqual(findOneEntityResult);
         });
 
         it("should return an object with entity s id an attribute, and sanitized multiple media field", ()=>{
-            const result = mapper.mapResponse(findOneWithMultipleMedia);
+            const result = mapper.mapResponse(findOneWithMultipleMedia.data);
             expect(result).toEqual(findOneWithMultipleMediaMappingResult);
         });
 
         it("should return an object with entity s id an attribute, and sanitized multiple media field in nested component", ()=>{
-            const result = mapper.mapResponse(findOneEntityWithMediaComponent);
+            const result = mapper.mapResponse(findOneEntityWithMediaComponent.data);
             expect(result).toEqual(findOneEntityWithMediaComponentResultMapping);
         });
 
         it("should return an object with entities s id an attribute, and sanitized dynamic zone s multiple media field in nested component", ()=>{
-            const result = mapper.mapResponse(findOneWithDzAndNestedComponent);
+            const result = mapper.mapResponse(findOneWithDzAndNestedComponent.data);
             expect(result).toEqual(findOneWithDzAndNestedComponentResultMapping);
         });
 
         it("should return an object with entities s id an attribute, and sanitized relationship entity s multiple media field in nested component", ()=>{
-            const result = mapper.mapResponse(findSingleTypeWithRelationshipAndNestedComponent);
+            const result = mapper.mapResponse(findSingleTypeWithRelationshipAndNestedComponent.data);
             expect(result).toEqual(findSingleTypeWithRelationshipAndNestedComponentResultMapping);
         });
 
@@ -43,22 +43,22 @@ describe('Mapper', ()=>{
     
     describe('receive find entity response', ()=>{
         it("should return an array with sanitized entities", ()=>{
-            const result = mapper.mapResponse(findEntity);
+            const result = mapper.mapResponse(findEntity.data);
             expect(result).toEqual(findEntityResultMapping);
         });
 
         it("should return an array with entities s id an attribute, and sanitized multiple media field", ()=>{
-            const result = mapper.mapResponse(findEntityMultipleMedia);
+            const result = mapper.mapResponse(findEntityMultipleMedia.data);
             expect(result).toEqual(findEntityMultipleMediaResultMapping);
         });
 
         it("should return an array with entities s id an attribute, and sanitized multiple media field in nested component", ()=>{
-            const result = mapper.mapResponse(findEntityWithMediaComponent);
+            const result = mapper.mapResponse(findEntityWithMediaComponent.data);
             expect(result).toEqual(findEntityWithMediaComponentResultMapping);
         });
 
         it("should return an array with entities s id an attribute, and sanitized dynamic zone s multiple media field in nested component", ()=>{
-            const result = mapper.mapResponse(findEntityWithDzAndNestedComponent);
+            const result = mapper.mapResponse(findEntityWithDzAndNestedComponent.data);
             expect(result).toEqual(findEntityWithDzAndNestedComponentResultMapping);
         });
     })
