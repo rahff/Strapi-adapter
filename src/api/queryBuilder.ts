@@ -2,15 +2,24 @@ import { stringify } from 'qs';
 import { QueryObject } from '../api/interfaces/api/interfaces';
 
 export class QueryBuilder {
-  public withParam: boolean = false;
+
   constructor(private query: QueryObject) {}
 
   public buildQueryString(): string {
     const queryObject: string[] | undefined = this.query.populate ? this.query.populate : this.query.fields;
+    const param = this.query.param || null;
+    const baseQuery = param ? `${this.query.entityName}/${param}?` : `${this.query.entityName}?`;
     let schema: any = {};
     if (queryObject) {
-      schema = { populate: {} };
-      queryObject.forEach((name: string) => {
+      schema = this.buildPopulation(queryObject)
+      return `/${baseQuery}` + stringify(schema, { encodeValuesOnly: true });
+    }
+    return `/${baseQuery}populate=%2A`;
+  }
+
+  private buildPopulation(populateObject: string[]): any {
+    let schema: any = { populate: {} };
+    populateObject.forEach((name: string) => {
         const isNested = this.isNested(name);
         if (isNested) {
           schema['populate'][isNested[1]] = { populate: this.buildNestedPopulate(isNested) };
@@ -18,12 +27,7 @@ export class QueryBuilder {
           schema['populate'][name] = { populate: '*' };
         }
       });
-      if (this.query.param) {
-        return `/${this.query.entityName}/${this.query.param}?` + stringify(schema, { encodeValuesOnly: true });
-      }
-      return `/${this.query.entityName}?` + stringify(schema, { encodeValuesOnly: true });
-    }
-    return `/${this.query.entityName}?populate=%2A`;
+      return schema;
   }
 
   private isNested(value: string): string[] | null {
