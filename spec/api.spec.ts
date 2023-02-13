@@ -9,6 +9,8 @@ import { findSingleTypeWithRelationshipAndNestedComponent } from "../data/single
 import { postEntityWithoutFile } from "../data/post/strapi-response";
 import { findOneWithDzAndNestedComponent } from "../data/findOne/data.strapi-response";
 import { Media } from "../src/api/interfaces/api/interfaces";
+import { putResultMapping } from "../data/put/putResultmapping";
+import { putResponse } from "../data/put/put";
 
 
 
@@ -25,7 +27,7 @@ describe("StrapiApi", ()=>{
     let api: StrapiApi;
     let axiosSpy: any;
     beforeEach(async ()=>{
-        axiosSpy = jasmine.createSpyObj('axios', ['get', 'post', 'delete'])
+        axiosSpy = jasmine.createSpyObj('axios', ['get', 'post', 'delete', 'put'])
         api = new StrapiApi('http://localhost:1337/api', axiosSpy);
     })
     it("should created", ()=>{
@@ -77,6 +79,13 @@ describe("StrapiApi", ()=>{
         expect(data).toEqual(postEntityWithoutFileMappingResult);
         const deleted = await api.delete('/products', id)
         expect(deleted).toBeTruthy();
+    })
+
+    it('\(putEntityWithoutFile)\ should update an entity and return a formatted response', async ()=>{
+        axiosSpy.put.and.returnValue(new Promise((resolve)=> resolve(putResponse)));
+        const data = await api.put<any>('/products', entityWithoutFilePayload);
+     
+        expect(data).toEqual(putResultMapping);
     })
 
 })

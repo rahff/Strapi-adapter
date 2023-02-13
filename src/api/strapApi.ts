@@ -1,4 +1,4 @@
-import { FindOneResponse, FindResponse, IResponse, QueryObject } from './interfaces/api/interfaces';
+import { IResponse, QueryObject } from './interfaces/api/interfaces';
 import { StrapiMapper } from './mapper';
 import { QueryBuilder } from './queryBuilder';
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
@@ -17,6 +17,11 @@ export class StrapiApi {
 
   async post<T>(path: string, body: any): Promise<IResponse<T>> {
     const response = await this.service.post<any, AxiosResponse<StrapiResponse, any>>(this.strapiUrl + path, body);
+    return this.mapper.mapResponse(response.data);
+  }
+
+  async put<T>(path: string, body: any): Promise<IResponse<T>> {
+    const response = await this.service.put<any, AxiosResponse<StrapiResponse, any>>(this.strapiUrl + path, body);
     return this.mapper.mapResponse(response.data);
   }
 

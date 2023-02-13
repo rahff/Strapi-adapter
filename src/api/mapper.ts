@@ -1,5 +1,5 @@
 import { FindResponse, IResponse, Media } from './interfaces/api/interfaces';
-import { StrapiResponse, StrapiMediaEntity, StrapiEntity, StrapiMediaList } from './interfaces/strapi/interfaces';
+import { StrapiResponse, StrapiMediaEntity, StrapiEntity } from './interfaces/strapi/interfaces';
 
 export class StrapiMapper {
   public mapResponse<T>(response: StrapiResponse): IResponse<T> {

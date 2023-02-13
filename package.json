@@ -5,8 +5,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "test": "",
-    "coverage": "nyc npm run test",
+    "test": "ts-node ./node_modules/.bin/jasmine --config=./jasmine.json",
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
