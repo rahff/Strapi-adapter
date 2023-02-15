@@ -3,7 +3,7 @@ import { AxiosResponse } from "axios"
 export const findOneEntity: AxiosResponse = {
     status: 200,
     statusText: "OK",
-    config: {},
+    config: {} as any,
     headers: {},
     data: {
         "data": {
@@ -93,7 +93,7 @@ export const findOneEntity: AxiosResponse = {
 export const findOneWithMultipleMedia: AxiosResponse = {
     status: 200,
     statusText: 'ok',
-    config: {},
+    config: {} as any,
     headers: {},
     data: {
         "data": {
@@ -251,7 +251,7 @@ export const findOneWithMultipleMedia: AxiosResponse = {
 export const findOneEntityWithMediaComponent: AxiosResponse = {
     status: 200,
     statusText: "ok",
-    config: {},
+    config: {} as any,
     headers: {},
     data: {
         "data": {
@@ -413,7 +413,7 @@ export const findOneEntityWithMediaComponent: AxiosResponse = {
 export const findOneWithDzAndNestedComponent: AxiosResponse = {
     status: 200,
     statusText: 'ok',
-    config: {},
+    config: {} as any,
     headers: {},
     data: {
         "data": {

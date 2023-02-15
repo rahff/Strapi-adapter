@@ -3,7 +3,7 @@ import { AxiosResponse } from "axios";
 export const findSingleTypeWithRelationshipAndNestedComponent: AxiosResponse = {
     status: 200,
     statusText: 'ok',
-    config: {},
+    config: {} as any,
     headers: {},
     data: {
         "data": {

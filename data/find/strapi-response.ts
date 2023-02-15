@@ -1,9 +1,9 @@
-import { AxiosResponse } from "axios"
+import { AxiosHeaders, AxiosResponse } from "axios"
 
 export const findEntity: AxiosResponse = {
     status: 200,
     statusText: 'ok',
-    config: {},
+    config: {} as any,
     headers: {},
     data: {
         "data": [
@@ -334,7 +334,7 @@ export const findEntity: AxiosResponse = {
 export const findEntityMultipleMedia: AxiosResponse = {
     status: 200,
     statusText: 'ok',
-    config: {},
+    config: {} as any,
     headers: {},
     data: {
         "data": [
@@ -637,7 +637,7 @@ export const findEntityMultipleMedia: AxiosResponse = {
 export const findEntityWithMediaComponent: AxiosResponse = {
     status: 200,
     statusText: 'ok',
-    config: {},
+    config: {} as any,
     headers: {},
     data: {
         "data": [
@@ -994,7 +994,7 @@ export const findEntityWithMediaComponent: AxiosResponse = {
 export const findEntityWithDzAndNestedComponent: AxiosResponse = {
     status: 200,
     statusText: 'ok',
-    config: {},
+    config: {} as any,
     headers: {},
     data: {
         "data": [
@@ -1288,7 +1288,7 @@ export const findEntityWithDzAndNestedComponent: AxiosResponse = {
 export const findEntityWithComplexRelationship: AxiosResponse = {
     status: 200,
     statusText: 'ok',
-    config: {},
+    config: { headers: {"Authorization": `Bearer 123`} as any},
     headers: {},
     data: {
         "data": [
