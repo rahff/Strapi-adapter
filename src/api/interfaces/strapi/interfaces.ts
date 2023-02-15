@@ -6,19 +6,17 @@ export interface StrapiEntity<T = any> {
   data?: { attributes: T };
 }
 
-export interface StrapiFindOneResponse {
-  data: { attributes: any; id: number };
+export interface StrapiFindOneResponse<T> {
+  data: { attributes: T; id: number };
   meta: any;
 }
 
-export interface StrapiFindResponse {
-  data: StrapiEntity[];
+export interface StrapiFindResponse<T> {
+  data: StrapiEntity<T>[];
   meta: {
     pagination: PaginationObject;
   };
 }
-
-export type StrapiResponse = StrapiFindResponse | StrapiFindOneResponse;
 
 export interface StrapiMediaEntity {
   data: StrapiEntity;

@@ -1,21 +1,26 @@
-import { FindResponse, IResponse, Media } from './interfaces/api/interfaces';
-import { StrapiResponse, StrapiMediaEntity, StrapiEntity } from './interfaces/strapi/interfaces';
+import { FindOneResponse, FindResponse, Image } from './interfaces/api/interfaces';
+import {
+  StrapiMediaEntity,
+  StrapiEntity,
+  StrapiFindResponse,
+  StrapiFindOneResponse,
+} from './interfaces/strapi/interfaces';
 
 export class StrapiMapper {
-  public mapResponse<T>(response: StrapiResponse): IResponse<T> {
-    if (Array.isArray(response.data)) {
-      const result: FindResponse<T> = { data: [], pagination: {} };
-      response.data.forEach((obj: StrapiEntity) => {
-        let attr = this.sanitizeDateTime(obj.attributes);
-        attr = this.mapMediaField(attr);
-        result.data.push({ id: obj.id, ...attr });
-      });
-      return { ...result, pagination: response.meta.pagination };
-    } else {
-      let attr = this.sanitizeDateTime(response.data.attributes);
+  public mapResponse<T>(response: StrapiFindResponse<T>): FindResponse<T> {
+    const result: FindResponse<T> = { data: [], pagination: {} };
+    response.data.forEach((obj: StrapiEntity) => {
+      let attr = this.sanitizeDateTime(obj.attributes);
       attr = this.mapMediaField(attr);
-      return { data: { id: response.data.id, ...attr } };
-    }
+      result.data.push({ id: obj.id, ...attr });
+    });
+    return { ...result, pagination: response.meta.pagination };
+  }
+
+  public mapFindOneResponse<T>(response: StrapiFindOneResponse<T>): FindOneResponse<T> {
+    let attr = this.sanitizeDateTime(response.data.attributes);
+    attr = this.mapMediaField(attr);
+    return { data: { id: response.data.id, ...attr } };
   }
 
   private isEntity(obj: any): boolean {
@@ -110,7 +115,7 @@ export class StrapiMapper {
     return media.data?.attributes ? media.data?.attributes : media.attributes;
   }
 
-  private mapSingleMediaField(media: StrapiMediaEntity | StrapiEntity): Media {
+  private mapSingleMediaField(media: StrapiMediaEntity | StrapiEntity): Image {
     const attr: any = this.getMediaAttribute(media);
     try {
       return {

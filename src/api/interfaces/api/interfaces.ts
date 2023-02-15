@@ -36,17 +36,15 @@ export interface FindOneResponse<T> {
   data: T;
 }
 
-export type IResponse<T> = FindOneResponse<T> | FindResponse<T>;
-
 export interface IEntity {
   id: number;
 }
 
-export interface Media {
+export interface Image {
   alt: string;
   small: string;
   thumbnail: string;
   url: string;
 }
 
-export type MediaList = Media[];
+export type ImageList = Image[];

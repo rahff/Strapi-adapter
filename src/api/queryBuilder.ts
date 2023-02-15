@@ -2,7 +2,6 @@ import { stringify } from 'qs';
 import { QueryObject } from '../api/interfaces/api/interfaces';
 
 export class QueryBuilder {
-
   constructor(private query: QueryObject) {}
 
   public buildQueryString(): string {
@@ -11,7 +10,7 @@ export class QueryBuilder {
     const baseQuery = param ? `${this.query.entityName}/${param}?` : `${this.query.entityName}?`;
     let schema: any = {};
     if (queryObject) {
-      schema = this.buildPopulation(queryObject)
+      schema = this.buildPopulation(queryObject);
       return `/${baseQuery}` + stringify(schema, { encodeValuesOnly: true });
     }
     return `/${baseQuery}populate=%2A`;
@@ -20,14 +19,14 @@ export class QueryBuilder {
   private buildPopulation(populateObject: string[]): any {
     let schema: any = { populate: {} };
     populateObject.forEach((name: string) => {
-        const isNested = this.isNested(name);
-        if (isNested) {
-          schema['populate'][isNested[1]] = { populate: this.buildNestedPopulate(isNested) };
-        } else {
-          schema['populate'][name] = { populate: '*' };
-        }
-      });
-      return schema;
+      const isNested = this.isNested(name);
+      if (isNested) {
+        schema['populate'][isNested[1]] = { populate: this.buildNestedPopulate(isNested) };
+      } else {
+        schema['populate'][name] = { populate: '*' };
+      }
+    });
+    return schema;
   }
 
   private isNested(value: string): string[] | null {

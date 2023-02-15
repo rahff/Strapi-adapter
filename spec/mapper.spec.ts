@@ -15,27 +15,27 @@ describe('Mapper', ()=>{
     })
     describe('receive a findOne entity response', ()=>{
         it("should return an object with entity s id an attribute, and sanitized media field", ()=>{
-            const result = mapper.mapResponse(findOneEntity.data);
+            const result = mapper.mapFindOneResponse(findOneEntity.data);
             expect(result).toEqual(findOneEntityResult);
         });
 
         it("should return an object with entity s id an attribute, and sanitized multiple media field", ()=>{
-            const result = mapper.mapResponse(findOneWithMultipleMedia.data);
+            const result = mapper.mapFindOneResponse(findOneWithMultipleMedia.data);
             expect(result).toEqual(findOneWithMultipleMediaMappingResult);
         });
 
         it("should return an object with entity s id an attribute, and sanitized multiple media field in nested component", ()=>{
-            const result = mapper.mapResponse(findOneEntityWithMediaComponent.data);
+            const result = mapper.mapFindOneResponse(findOneEntityWithMediaComponent.data);
             expect(result).toEqual(findOneEntityWithMediaComponentResultMapping);
         });
 
         it("should return an object with entities s id an attribute, and sanitized dynamic zone s multiple media field in nested component", ()=>{
-            const result = mapper.mapResponse(findOneWithDzAndNestedComponent.data);
+            const result = mapper.mapFindOneResponse(findOneWithDzAndNestedComponent.data);
             expect(result).toEqual(findOneWithDzAndNestedComponentResultMapping);
         });
 
         it("should return an object with entities s id an attribute, and sanitized relationship entity s multiple media field in nested component", ()=>{
-            const result = mapper.mapResponse(findSingleTypeWithRelationshipAndNestedComponent.data);
+            const result = mapper.mapFindOneResponse(findSingleTypeWithRelationshipAndNestedComponent.data);
             expect(result).toEqual(findSingleTypeWithRelationshipAndNestedComponentResultMapping);
         });
 
