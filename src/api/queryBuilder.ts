@@ -2,6 +2,7 @@ import { stringify } from 'qs';
 import { QueryObject } from '../api/interfaces/api/interfaces';
 
 export class QueryBuilder {
+  
   constructor(private query: QueryObject) {}
 
   public buildQueryString(): string {
